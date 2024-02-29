@@ -342,11 +342,12 @@ class SslLabsParser(object):
                     find.unsaved_endpoints.append(
                         Endpoint(host=ipAddress, port=port, protocol=protocol)
                     )
-                if endpoints["details"]["httpTransactions"]:
-                    for url in endpoints["details"]["httpTransactions"]:
-                        find.unsaved_endpoints.append(
-                            Endpoint.from_uri(url["requestUrl"])
-                        )
+                if "httpTransactions" in endpoints["details"]:
+                    if endpoints["details"]["httpTransactions"]:
+                        for url in endpoints["details"]["httpTransactions"]:
+                            find.unsaved_endpoints.append(
+                                Endpoint.from_uri(url["requestUrl"])
+                            )
 
         return list(dupes.values())
 
